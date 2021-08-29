@@ -6,23 +6,35 @@ export function caixaEletronico(valor_saque:number) {
         return valor_saque;
     }
     
-    if(valor_saque % 10 !==0){
+    if(valor_saque % 10 !==0){ 
         return 'Ná há notas disponíveis para o valor informado.';
     }
 
-    let notas = []
+    let notas: Array<number> = [];
     notas_disponiveis.map(nota => {
-        while (valor_saque < nota) {
-            
+        while (valor_saque >= nota) {
+            notas.push(nota);
+            valor_saque -= nota;
         }
     })
-
-    return 'Entregar 1 nota de R$100,00 e 1 nota de R$ 10,00.';
-}
-
-
-
-
+    //  filter method:
+    //  const notasUnico = notas.filter((v, i, a) => a.indexOf(v) === i); 
+    const notaOcorrencias = (arr: Array<number>, val: number) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+    const notaUnico = notas.reduce((a: Array<number>, v:number) => (a.includes(v) ? a : [...a, v] ), []);
+    let str:string = '';
+    for (let i = 0; i < notaUnico.length; i++) {
+        let notaNum:number = notaOcorrencias(notas, notaUnico[i]);
+        if (i==0) {
+            str = `Entregar ${notaNum} nota de R$${notaUnico[i].toFixed(2).replace(".", ",")}`;
+        }else{
+            str = str.concat(` e ${notaNum} nota de R$${notaUnico[i].toFixed(2).replace(".", ",")}`);
+        }
+        if (i == notaUnico.length -1) {
+            str = str.concat('.');
+        }
+    }
+    return str;
+} 
 // Desenvolva um programa que simule a entrega de notas quando um cliente efetuar um saque em um caixa
 // eletrônico. Os requisitos básicos são os seguintes:
 // ● Entregar o menor número de notas;
