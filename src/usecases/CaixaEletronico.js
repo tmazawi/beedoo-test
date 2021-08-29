@@ -21,7 +21,7 @@ function caixaEletronico(valor_saque) {
             valor_saque -= nota;
         }
     });
-    //  filter method:
+    //  filter method: 
     //  const notasUnico = notas.filter((v, i, a) => a.indexOf(v) === i); 
     var notaOcorrencias = function (arr, val) { return arr.reduce(function (a, v) { return (v === val ? a + 1 : a); }, 0); };
     var notaUnico = notas.reduce(function (a, v) { return (a.includes(v) ? a : __spreadArray(__spreadArray([], a), [v])); }, []);
