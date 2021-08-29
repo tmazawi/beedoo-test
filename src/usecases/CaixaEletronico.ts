@@ -1,6 +1,6 @@
 export function caixaEletronico(valor_saque:number) {
 
-    const notas_disponiveis = [100, 50, 20,10];
+    const notas_disponiveis: Array<number> = [100, 50, 20,10];
 
     if(notas_disponiveis.includes(valor_saque)) {
         return valor_saque;
@@ -17,12 +17,12 @@ export function caixaEletronico(valor_saque:number) {
             valor_saque -= nota;
         }
     })
-    //  filter method:
+    //  filter method: 
     //  const notasUnico = notas.filter((v, i, a) => a.indexOf(v) === i); 
     const notaOcorrencias = (arr: Array<number>, val: number) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
-    const notaUnico = notas.reduce((a: Array<number>, v:number) => (a.includes(v) ? a : [...a, v] ), []);
+    const notaUnico: Array<number> = notas.reduce((a: Array<number>, v:number) => (a.includes(v) ? a : [...a, v] ), []);
     let str:string = '';
-    for (let i = 0; i < notaUnico.length; i++) {
+    for (let i:number = 0; i < notaUnico.length; i++) {
         let notaNum:number = notaOcorrencias(notas, notaUnico[i]);
         if (i==0) {
             str = `Entregar ${notaNum} nota de R$${notaUnico[i].toFixed(2).replace(".", ",")}`;
